@@ -27,11 +27,11 @@ public class HelpState extends State {
     private Texture rocketPointer;
     private NinePatchDrawable frame;
 
-    HelpState(GameStateManager gameStateManager) {
-        super(gameStateManager);
+    HelpState(GameStateManager gameStateManager, MyGdxGame game) {
+        super(gameStateManager, game);
         IS_POINTER_HIDDEN = false;
         camera.setToOrtho(false, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
-        rocket = new Rocket(45, gameStateManager, true);
+        rocket = new Rocket(45, true);
         rocketPointer = new Texture(Gdx.files.internal("skin/rocket_pointer.png"));
         bg = new Texture("bg_home.png");
         frame = new NinePatchDrawable(getNinePatch("skin/table_border.png"));
@@ -107,7 +107,7 @@ public class HelpState extends State {
     @Override
     public void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
-            gameStateManager.set(new MenuState(gameStateManager));
+            gameStateManager.set(new MenuState(gameStateManager, game));
         }
     }
 

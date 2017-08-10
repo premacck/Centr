@@ -31,10 +31,10 @@ class AsteroidPlayState extends State {
     private Vector2 bgPosition1;
     private Vector2 bgPosition2;
 
-    AsteroidPlayState(GameStateManager gameStateManager) {
-        super(gameStateManager);
+    AsteroidPlayState(GameStateManager gameStateManager, MyGdxGame game) {
+        super(gameStateManager, game);
         camera.setToOrtho(false, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
-        rocket = new Rocket(50, gameStateManager, false);
+        rocket = new Rocket(50, false);
         bg = new Texture("bg_play_asteroid.png");
         bgPosition1 = new Vector2(camera.position.y - camera.viewportHeight, 0);
         bgPosition2 = new Vector2((camera.position.y - camera.viewportHeight) + bg.getWidth(), 0);
@@ -50,7 +50,7 @@ class AsteroidPlayState extends State {
     @Override
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
-            gameStateManager.set(new MenuState(gameStateManager));
+            gameStateManager.set(new MenuState(gameStateManager, game));
             dispose();
         }
     }

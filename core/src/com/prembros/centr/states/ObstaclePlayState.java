@@ -23,7 +23,9 @@ import static com.prembros.centr.MyGdxGame.MENU_STATE;
 import static com.prembros.centr.MyGdxGame.PLAY_STATE;
 import static com.prembros.centr.MyGdxGame.SETTINGS_STATE;
 import static com.prembros.centr.sprites.Obstacle.OBSTACLE_WIDTH;
+import static com.prembros.centr.sprites.Rocket.IS_MENU_LAUNCHED;
 import static com.prembros.centr.sprites.Rocket.IS_PAUSED;
+import static com.prembros.centr.sprites.Rocket.IS_SETTINGS_LAUNCHED;
 
 /**
  *
@@ -51,8 +53,8 @@ class ObstaclePlayState extends State {
     private Vector2 bgBottomPosition2;
     private boolean scoreFlag;
 
-    ObstaclePlayState(GameStateManager gameStateManager) {
-        super(gameStateManager);
+    ObstaclePlayState(GameStateManager gameStateManager, MyGdxGame game) {
+        super(gameStateManager, game);
         SCORE = 0;
         scoreFlag = true;
         scoreString = String.valueOf(SCORE);
@@ -67,7 +69,7 @@ class ObstaclePlayState extends State {
         deathSound.setVolume(getSoundVolume());
 
         camera.setToOrtho(false, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
-        rocket = new Rocket(50, gameStateManager, false);
+        rocket = new Rocket(50, false);
         bg = new Texture("bg_home.png");
         ckt = new Texture("bg_play_ground.png");
         bgTopPosition1 = new Vector2(camera.position.y - camera.viewportHeight, MyGdxGame.HEIGHT - ckt.getHeight());
@@ -103,6 +105,7 @@ class ObstaclePlayState extends State {
                         SCORE++;
                         scoreString = String.valueOf(SCORE);
                         scoreFlag = false;
+
                     }
                 }
             }
@@ -126,6 +129,13 @@ class ObstaclePlayState extends State {
                 }
             }
             camera.update();
+        } else {
+            if (IS_MENU_LAUNCHED) {
+                gameStateManager.set(new MenuState(gameStateManager, game));
+            }
+            else if (IS_SETTINGS_LAUNCHED) {
+                gameStateManager.set(new SettingsState(gameStateManager, game));
+            }
         }
     }
 

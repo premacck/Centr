@@ -31,8 +31,8 @@ public class MenuState extends State implements InputProcessor {
     private Texture background;
     private Music welcomeMusic;
 
-    public MenuState(GameStateManager gameStateManager) {
-        super(gameStateManager);
+    public MenuState(GameStateManager gameStateManager, MyGdxGame game) {
+        super(gameStateManager, game);
         background = new Texture("bg_home.png");
         welcomeMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/welcome_music.mp3"));
         welcomeMusic.setLooping(true);
@@ -193,11 +193,11 @@ public class MenuState extends State implements InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         if (screenY > (MyGdxGame.HEIGHT / 2)) {
-            gameStateManager.set(new ObstaclePlayState(gameStateManager));
+            gameStateManager.set(new ObstaclePlayState(gameStateManager, game));
             dispose();
         }
         else if (screenY < (MyGdxGame.HEIGHT / 2)) {
-            gameStateManager.set(new AsteroidPlayState(gameStateManager));
+            gameStateManager.set(new AsteroidPlayState(gameStateManager, game));
             dispose();
         }
         return true;

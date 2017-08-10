@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_id">1070714249404</string>
+    <string name="package_name">com.prembros.centr</string>
+    <string name="achievement_good_start_is_half_done">CgkIvMGr3JQfEAIQAg</string>
+    <string name="achievement_5_points">CgkIvMGr3JQfEAIQAw</string>
+    <string name="achievement_10_points">CgkIvMGr3JQfEAIQBA</string>
+    <string name="achievement_nice_going">CgkIvMGr3JQfEAIQBQ</string>
+    <string name="achievement_god_dang">CgkIvMGr3JQfEAIQBg</string>
+    <string name="achievement_keep_going">CgkIvMGr3JQfEAIQBw</string>
+    <string name="achievement_youre_on_fire">CgkIvMGr3JQfEAIQCA</string>
+    <string name="leaderboard_centr_hall_of_famers">CgkIvMGr3JQfEAIQAQ</string>
+</resources>

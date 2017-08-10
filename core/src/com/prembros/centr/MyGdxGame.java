@@ -18,15 +18,21 @@ public class MyGdxGame extends ApplicationAdapter {
 	public static final int HEIGHT = 800;
 	public static final String TITLE = "Centr";
 
+	public PlayServices playServices;
 	private SpriteBatch spriteBatch;
 	private GameStateManager gameStateManager;
+
+	public MyGdxGame(PlayServices playServices) {
+		if (playServices != null)
+		this.playServices = playServices;
+	}
 
 	@Override
 	public void create () {
 		spriteBatch = new SpriteBatch();
 		gameStateManager = new GameStateManager();
 		Gdx.gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
-		gameStateManager.push(new MenuState(gameStateManager));
+		gameStateManager.push(new MenuState(gameStateManager, this));
 	}
 
 	@Override

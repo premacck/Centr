@@ -21,9 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.prembros.centr.MyGdxGame;
-import com.prembros.centr.states.GameStateManager;
-import com.prembros.centr.states.MenuState;
-import com.prembros.centr.states.SettingsState;
 
 import static com.prembros.centr.states.HelpState.IS_POINTER_HIDDEN;
 import static com.prembros.centr.states.SettingsState.PREFS_NAME;
@@ -46,6 +43,8 @@ public class Rocket {
     private static final int CENTER_HORIZONTAL_POSITION_DOWN = (MyGdxGame.HEIGHT / 2) - (ROCKET_HEIGHT / 2);
     private static final int MOVEMENT = 150;
     public static boolean IS_PAUSED;
+    public static boolean IS_MENU_LAUNCHED;
+    public static boolean IS_SETTINGS_LAUNCHED;
 
     private Sound blop;
     private Texture rocket;
@@ -59,15 +58,15 @@ public class Rocket {
     private Stage stage;
     private Table table;
     private InputProcessor inputProcessor;
-    private GameStateManager gameStateManager;
     private boolean isHelp;
     private boolean upPressed;
     private boolean downPressed;
 
-    public Rocket(int x, GameStateManager gameStateManager, boolean isHelp) {
-        this.gameStateManager = gameStateManager;
+    public Rocket(int x, boolean isHelp) {
         this.isHelp = isHelp;
         IS_PAUSED = false;
+        IS_MENU_LAUNCHED = false;
+        IS_SETTINGS_LAUNCHED = false;
         blop = Gdx.audio.newSound(Gdx.files.internal("sound/blop.ogg"));
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
@@ -115,12 +114,12 @@ public class Rocket {
         if (!IS_PAUSED) {
             if (upPressed) {
                 velocity.add(0, UP_GRAVITY, 0);
-            } else if (position.y > CENTER_HORIZONTAL_POSITION_UP) {
-
                 rotation += 1.5;
+            } else if (position.y > CENTER_HORIZONTAL_POSITION_UP) {
+                velocity.sub(0, (float) (UP_GRAVITY * 1.5), 0);
+                rotation -= 1.5;
             } else if (downPressed) {
                 velocity.add(0, DOWN_GRAVITY, 0);
-                rotation -= 1.5;velocity.sub(0, (float) (UP_GRAVITY * 1.5), 0);
                 rotation -= 1.5;
             } else if (position.y < CENTER_HORIZONTAL_POSITION_DOWN) {
                 velocity.sub(0, (float) (DOWN_GRAVITY * 1.5), 0);
@@ -226,14 +225,6 @@ public class Rocket {
                     downPressed = false;
                     if (isAutoHideEnabled() && table.isVisible())
                         table.setVisible(false);
-//                    if (IS_POINTER_HIDDEN) {
-//                        Timer.schedule(new Timer.Task() {
-//                            @Override
-//                            public void run() {
-//                                IS_POINTER_HIDDEN = false;
-//                            }
-//                        }, 2);
-//                    }
                 }
             });
 
@@ -255,14 +246,6 @@ public class Rocket {
                     upPressed = false;
                     if (isAutoHideEnabled() && table.isVisible())
                         table.setVisible(false);
-//                    if (IS_POINTER_HIDDEN) {
-//                        Timer.schedule(new Timer.Task() {
-//                            @Override
-//                            public void run() {
-//                                IS_POINTER_HIDDEN = false;
-//                            }
-//                        }, 2);
-//                    }
                 }
             });
         }
@@ -279,16 +262,11 @@ public class Rocket {
         backBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                showPauseDialog();
                 return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                gameStateManager.set(new MenuState(gameStateManager));
             }
         });
     }
-
 
     private void handleInput() {
         inputProcessor = new InputProcessor() {
@@ -311,8 +289,7 @@ public class Rocket {
                 }
                 else if (keycode == Input.Keys.BACK) {
                     if (!isHelp) {
-                        gameStateManager.set(new MenuState(gameStateManager));
-                        dispose();
+                        showPauseDialog();
                     }
                 }
                 return true;
@@ -331,14 +308,6 @@ public class Rocket {
                     if (isAutoHideEnabled() && table.isVisible())
                         table.setVisible(false);
                 }
-//                if (IS_POINTER_HIDDEN) {
-//                    Timer.schedule(new Timer.Task() {
-//                        @Override
-//                        public void run() {
-//                            IS_POINTER_HIDDEN = false;
-//                        }
-//                    }, 2);
-//                }
                 return true;
             }
 
@@ -393,7 +362,6 @@ public class Rocket {
 
     private void showPauseDialog() {
         IS_PAUSED = true;
-//        stage.clear();
         Skin skin = new Skin(Gdx.files.internal("skin/skin_centr.json"));
         Table table = new Table(skin);
         table.center();
@@ -424,7 +392,7 @@ public class Rocket {
                 dialog.hide();
                 dialog.cancel();
                 dialog.remove();
-                gameStateManager.set(new MenuState(gameStateManager));
+                IS_MENU_LAUNCHED = true;
             }
         });
 
@@ -434,7 +402,7 @@ public class Rocket {
                 dialog.hide();
                 dialog.cancel();
                 dialog.remove();
-                gameStateManager.set(new SettingsState(gameStateManager));
+                IS_SETTINGS_LAUNCHED = true;
             }
         });
 

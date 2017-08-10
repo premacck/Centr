@@ -43,8 +43,8 @@ public class SettingsState extends State {
 
     private Texture background;
 
-    public SettingsState(GameStateManager gameStateManager) {
-        super(gameStateManager);
+    SettingsState(GameStateManager gameStateManager, MyGdxGame game) {
+        super(gameStateManager, game);
         background = new Texture("bg_home.png");
         welcomeMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/welcome_music.mp3"));
         welcomeMusic.setLooping(true);

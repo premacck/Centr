@@ -1,10 +1,12 @@
 package com.prembros.centr.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.net.HttpStatus;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -38,18 +40,23 @@ public abstract class State {
     static final int BTN_WIDTH = 320;
     static final int BTN_HEIGHT = 80;
 
+    MyGdxGame game;
     OrthographicCamera camera;
     GameStateManager gameStateManager;
     Stage stage;
     Skin skin;
     Sound btnHover;
 
-    State(GameStateManager gameStateManager) {
+    State(GameStateManager gameStateManager, MyGdxGame game) {
         this.gameStateManager = gameStateManager;
+        this.game = game;
         camera = new OrthographicCamera();
         stage = new Stage(new FillViewport(MyGdxGame.WIDTH, MyGdxGame.HEIGHT, camera));
         skin = new Skin(Gdx.files.internal("skin/skin_centr.json"));
         btnHover = Gdx.audio.newSound(Gdx.files.internal("sound/click.ogg"));
+        if (isConnected() && !game.playServices.isSignedIn()) {
+            game.playServices.signIn();
+        }
     }
 
     public void resize(int width, int height) {
@@ -60,23 +67,23 @@ public abstract class State {
         switch(screen) {
             case MENU_STATE:
                 if (!gameStateManager.isStackEmpty())
-                    gameStateManager.set(new MenuState(gameStateManager));
-                else gameStateManager.push(new MenuState(gameStateManager));
+                    gameStateManager.set(new MenuState(gameStateManager, game));
+                else gameStateManager.push(new MenuState(gameStateManager, game));
                 break;
             case PLAY_STATE:
                 if (!gameStateManager.isStackEmpty())
-                    gameStateManager.set(new ObstaclePlayState(gameStateManager));
-                else gameStateManager.push(new ObstaclePlayState(gameStateManager));
+                    gameStateManager.set(new ObstaclePlayState(gameStateManager, game));
+                else gameStateManager.push(new ObstaclePlayState(gameStateManager, game));
                 break;
             case SETTINGS_STATE:
                 if (!gameStateManager.isStackEmpty())
-                    gameStateManager.set(new SettingsState(gameStateManager));
-                else gameStateManager.push(new SettingsState(gameStateManager));
+                    gameStateManager.set(new SettingsState(gameStateManager, game));
+                else gameStateManager.push(new SettingsState(gameStateManager, game));
                 break;
             case HELP_STATE:
                 if (!gameStateManager.isStackEmpty())
-                    gameStateManager.set(new HelpState(gameStateManager));
-                else gameStateManager.push(new HelpState(gameStateManager));
+                    gameStateManager.set(new HelpState(gameStateManager, game));
+                else gameStateManager.push(new HelpState(gameStateManager, game));
                 break;
             case EXIT_STATE:
                 quitGameConfirm();
@@ -134,6 +141,31 @@ public abstract class State {
     public abstract void render(SpriteBatch spriteBatch);
 
     public abstract void dispose();
+
+    private boolean isConnected() {
+        final boolean[] result = {false};
+        Net.HttpRequest httpRequest = new Net.HttpRequest();
+        httpRequest.setMethod(Net.HttpMethods.GET);
+        httpRequest.setUrl("www.google.com");
+        Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                result[0] = httpResponse.getStatus().getStatusCode() == HttpStatus.SC_ACCEPTED ||
+                        httpResponse.getStatus().getStatusCode() == HttpStatus.SC_OK;
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                result[0] = false;
+            }
+
+            @Override
+            public void cancelled() {
+                result[0] = false;
+            }
+        });
+        return result[0];
+    }
 
     private Preferences getPrefs() {
         return Gdx.app.getPreferences(PREFS_NAME);

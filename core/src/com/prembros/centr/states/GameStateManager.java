@@ -18,9 +18,9 @@ public class GameStateManager {
         states = new Stack<State>();
     }
 
-    public void pop() {
-        states.pop().dispose();
-    }
+//    public void pop() {
+//        states.pop().dispose();
+//    }
 
     public void push(State state) {
         states.push(state);
@@ -34,7 +34,7 @@ public class GameStateManager {
         return states.empty();
     }
 
-    public void set(State state) {
+    void set(State state) {
         states.pop().dispose();
         states.push(state);
     }

@@ -19,11 +19,16 @@ android {
     }
     defaultConfig {
         applicationId "com.prembros.centr"
-        minSdkVersion 9
+        minSdkVersion 15
         targetSdkVersion 26
+        multiDexEnabled true
     }
 }
 
+dependencies {
+    //noinspection GradleCompatible
+    compile 'com.android.support:multidex:1.0.1'
+}
 
 // called every time gradle gets executed, takes the native dependencies of
 // the natives configuration, and extracts them to the proper libs/ folders
