@@ -9,6 +9,7 @@ import java.util.Stack;
  * Created by Prem $ on 7/19/2017.
  */
 
+@SuppressWarnings("Convert2Diamond")
 public class GameStateManager {
 
     private Stack<State> states;
@@ -17,15 +18,23 @@ public class GameStateManager {
         states = new Stack<State>();
     }
 
+    public void pop() {
+        states.pop().dispose();
+    }
+
     public void push(State state) {
         states.push(state);
     }
 
-    void pop() {
-        states.pop().dispose();
+    public State getState() {
+        return states.peek();
     }
 
-    void set(State state) {
+    boolean isStackEmpty() {
+        return states.empty();
+    }
+
+    public void set(State state) {
         states.pop().dispose();
         states.push(state);
     }

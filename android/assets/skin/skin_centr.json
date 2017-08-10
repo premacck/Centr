@@ -1,0 +1,405 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	bitwise: {
+		file: bitwise.fnt
+	}
+	cranberry_gin: {
+		file: cranberry_gin.fnt
+	}
+	cranberry_gin_30: {
+		file: cranberry_gin_30.fnt
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	black: {
+		r: 0
+		g: 0
+		b: 0
+		a: 1
+	}
+	gray: {
+		r: 0.49333337
+		g: 0.49333337
+		b: 0.49333337
+		a: 1
+	}
+	gray_light: {
+		r: 0.74666667
+		g: 0.74666667
+		b: 0.74666667
+		a: 1
+	}
+	project_amber: {
+		r: 1
+		g: 0.76862746
+		b: 0.14509805
+		a: 1
+	}
+	project_blue: {
+		r: 0
+		g: 0.68235296
+		b: 0.85882354
+		a: 1
+	}
+	project_green: {
+		r: 0
+		g: 0.69411767
+		b: 0.34901962
+		a: 1
+	}
+	project_orange: {
+		r: 0.9529412
+		g: 0.46666667
+		b: 0.20784314
+		a: 1
+	}
+	project_red: {
+		r: 0.81960785
+		g: 0.06666667
+		b: 0.25490198
+		a: 1
+	}
+	translucent_black: {
+		r: 0
+		g: 0
+		b: 0
+		a: 0.58980393
+	}
+	translucent_red: {
+		r: 0.81960785
+		g: 0.06666667
+		b: 0.25490198
+		a: 0.78431374
+	}
+	translucent_white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 0.78568625
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	scroll_knob_horiz: {
+		name: scroll_horiz
+		color: project_amber
+	}
+	scroll_knob_vert: {
+		name: scroll_vert
+		color: project_amber
+	}
+	translucent_black_light: {
+		name: translucent_black
+		color: translucent_black
+	}
+	back_red: {
+		name: back
+		color: project_red
+	}
+	back_arrow_red: {
+		name: back_arrow
+		color: project_red
+	}
+	down_arrow_translucent: {
+		name: down_arrow
+		color: translucent_white
+	}
+	down_arrow_red: {
+		name: down_arrow
+		color: project_red
+	}
+	down_arrow_translucent_red: {
+		name: down_arrow
+		color: translucent_red
+	}
+	exit_red: {
+		name: exit
+		color: project_red
+	}
+	exit_arrow_red: {
+		name: exit_arrow
+		color: project_red
+	}
+	replaybtn_red: {
+		name: replaybtn
+		color: project_red
+	}
+	play_red: {
+		name: play
+		color: project_red
+	}
+	menubtn_red: {
+		name: menubtn
+		color: project_red
+	}
+	help_red: {
+		name: help
+		color: project_red
+	}
+	settings_red: {
+		name: settings
+		color: project_red
+	}
+	up_arrow_red: {
+		name: up_arrow
+		color: project_red
+	}
+	up_arrow_translucent: {
+		name: up_arrow
+		color: translucent_white
+	}
+	up_arrow_translucent_red: {
+		name: up_arrow
+		color: translucent_red
+	}
+	pause_red: {
+		name: pause
+		color: project_red
+	}
+	btn_square_default_translucent: {
+		name: btn_square_default
+		color: translucent_white
+	}
+	btn_square_hover_translucent: {
+		name: btn_square_hover
+		color: translucent_white
+	}
+	bt_square_pressed_translucent: {
+		name: bt_square_pressed
+		color: translucent_white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: {
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	toggle: {
+		up: square_fill_white
+		checked: square_fill_red
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
+	default: {
+		checkboxOn: square_fill_gradient
+		checkboxOff: square_fill_none
+		checkboxOver: square_fill_white
+		font: cranberry_gin_30
+		fontColor: gray_light
+		checkedFontColor: project_amber
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+	default: {
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	toggle: {
+		up: square_fill_none
+		over: square_fill_white
+		checked: square_fill_red
+	}
+	playBtn: {
+		imageUp: play
+		imageDown: play_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	settingsBtn: {
+		imageUp: settings
+		imageDown: settings_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	helpBtn: {
+		imageUp: help
+		imageDown: help_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	exitBtn: {
+		imageUp: exit
+		imageDown: exit_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	backBtn: {
+		imageUp: back
+		imageDown: back_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	backBtn_arrow: {
+		imageUp: back_arrow
+		imageDown: back_arrow_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	exitBtn_arrow: {
+		imageUp: exit_arrow
+		imageDown: exit_arrow_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	menuBtn: {
+		imageUp: menubtn
+		imageDown: menubtn_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	replayBtn: {
+		imageUp: replaybtn
+		imageDown: replaybtn_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	upBtn: {
+		imageUp: up_arrow_translucent
+		imageDown: up_arrow_translucent_red
+	}
+	downBtn: {
+		imageUp: down_arrow_translucent
+		imageDown: down_arrow_translucent_red
+	}
+	pauseBtn: {
+		imageUp: pause
+		imageDown: pause_red
+		up: btn_square_default_translucent
+		down: bt_square_pressed_translucent
+		over: btn_square_hover_translucent
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
+	default: {
+		font: cranberry_gin
+		fontColor: black
+		downFontColor: white
+		overFontColor: project_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	toggle: {
+		font: cranberry_gin
+		fontColor: black
+		checkedFontColor: white
+		up: square_fill_white
+		checked: square_fill_red
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: cranberry_gin_30
+		fontColor: gray_light
+	}
+	black: {
+		font: cranberry_gin_30
+		fontColor: black
+	}
+	white: {
+		font: cranberry_gin_30
+		fontColor: white
+	}
+	translucent_bg: {
+		font: cranberry_gin_30
+		fontColor: white
+		background: translucent_black
+	}
+	title_black: {
+		font: bitwise
+		fontColor: black
+	}
+	title_white: {
+		font: bitwise
+		fontColor: white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
+	default-horizontal: {
+		background: square_fill_none
+		knob: progress_fill_red
+	}
+	default-vertical: {
+		background: square_fill_none
+		knob: progress_fill_red_vert
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		hScroll: scroll_horiz
+		hScrollKnob: scroll_knob_horiz
+		vScroll: scroll_vert
+		vScrollKnob: scroll_knob_vert
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
+	default-horizontal: {
+		background: slider_horiz
+		knob: slider_knob
+	}
+	default-vertical: {
+		background: slider_vert
+		knob: slider_knob
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: cranberry_gin_30
+		fontColor: black
+		downFontColor: white
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	toggle: {
+		font: cranberry_gin_30
+		fontColor: black
+		overFontColor: gray_light
+		checkedFontColor: white
+		up: square_fill_white
+		over: square_fill_none
+		checked: square_fill_red
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	default: {
+		font: cranberry_gin
+		fontColor: white
+		focusedFontColor: project_red
+		background: square_fill_red
+		focusedBackground: square_fill_white
+		cursor: cursor
+		selection: translucent_black
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: white
+		background: square_red
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		background: window
+		titleFont: bitwise
+		titleFontColor: project_amber
+		stageBackground: translucent_black_light
+	}
+}
+}

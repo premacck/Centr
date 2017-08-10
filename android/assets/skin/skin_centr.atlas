@@ -1,0 +1,264 @@
+
+skin_centr.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+back
+  rotate: false
+  xy: 1, 187
+  size: 102, 40
+  orig: 102, 40
+  offset: 0, 0
+  index: -1
+back_arrow
+  rotate: false
+  xy: 331, 403
+  size: 24, 40
+  orig: 24, 40
+  offset: 0, 0
+  index: -1
+down_arrow
+  rotate: false
+  xy: 259, 403
+  size: 70, 40
+  orig: 70, 40
+  offset: 0, 0
+  index: -1
+exit
+  rotate: false
+  xy: 259, 445
+  size: 98, 40
+  orig: 98, 40
+  offset: 0, 0
+  index: -1
+exit_arrow
+  rotate: false
+  xy: 177, 187
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+help
+  rotate: false
+  xy: 773, 825
+  size: 35, 40
+  orig: 35, 40
+  offset: 0, 0
+  index: -1
+menubtn
+  rotate: false
+  xy: 83, 145
+  size: 44, 40
+  orig: 44, 40
+  offset: 0, 0
+  index: -1
+pause
+  rotate: false
+  xy: 597, 649
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: -1
+play
+  rotate: false
+  xy: 1, 1
+  size: 29, 50
+  orig: 29, 50
+  offset: 0, 0
+  index: -1
+replaybtn
+  rotate: false
+  xy: 649, 701
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+settings
+  rotate: false
+  xy: 515, 567
+  size: 37, 40
+  orig: 37, 40
+  offset: 0, 0
+  index: -1
+up_arrow
+  rotate: false
+  xy: 105, 187
+  size: 70, 40
+  orig: 70, 40
+  offset: 0, 0
+  index: -1
+bt_square_pressed
+  rotate: false
+  xy: 515, 661
+  size: 80, 80
+  split: 30, 29, 22, 37
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+btn_square_default
+  rotate: false
+  xy: 773, 919
+  size: 80, 80
+  split: 30, 29, 22, 37
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+btn_square_hover
+  rotate: false
+  xy: 1, 105
+  size: 80, 80
+  split: 30, 29, 22, 37
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+cursor
+  rotate: false
+  xy: 411, 481
+  size: 2, 4
+  split: 0, 0, 0, 0
+  orig: 2, 4
+  offset: 0, 0
+  index: -1
+progress_fill_red
+  rotate: false
+  xy: 825, 867
+  size: 25, 50
+  split: 14, 10, 19, 16
+  pad: 0, 0, 0, 0
+  orig: 25, 50
+  offset: 0, 0
+  index: -1
+progress_fill_red_vert
+  rotate: false
+  xy: 359, 460
+  size: 50, 25
+  split: 16, 17, 10, 14
+  pad: 0, 0, 0, 0
+  orig: 50, 25
+  offset: 0, 0
+  index: -1
+scroll_horiz
+  rotate: false
+  xy: 53, 84
+  size: 19, 19
+  split: 6, 7, 6, 7
+  pad: 0, 0, 0, 0
+  orig: 19, 19
+  offset: 0, 0
+  index: -1
+scroll_vert
+  rotate: false
+  xy: 855, 928
+  size: 19, 19
+  split: 6, 7, 6, 7
+  pad: 0, 0, 0, 0
+  orig: 19, 19
+  offset: 0, 0
+  index: -1
+slider_horiz
+  rotate: false
+  xy: 567, 649
+  size: 28, 10
+  split: 5, 5, 4, 4
+  pad: 0, 0, 0, 0
+  orig: 28, 10
+  offset: 0, 0
+  index: -1
+slider_knob
+  rotate: false
+  xy: 907, 969
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+slider_vert
+  rotate: false
+  xy: 259, 283
+  size: 10, 28
+  split: 4, 4, 5, 4
+  pad: 0, 0, 0, 0
+  orig: 10, 28
+  offset: 0, 0
+  index: -1
+square_fill_gradient
+  rotate: false
+  xy: 855, 949
+  size: 50, 50
+  split: 16, 16, 16, 16
+  pad: 0, 0, 0, 0
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+square_fill_none
+  rotate: false
+  xy: 1, 53
+  size: 50, 50
+  split: 16, 16, 16, 16
+  pad: 0, 0, 0, 0
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+square_fill_red
+  rotate: false
+  xy: 515, 609
+  size: 50, 50
+  split: 16, 16, 16, 16
+  pad: 0, 0, 0, 0
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+square_fill_white
+  rotate: false
+  xy: 597, 691
+  size: 50, 50
+  split: 16, 16, 16, 16
+  pad: 0, 0, 0, 0
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+square_red
+  rotate: false
+  xy: 773, 867
+  size: 50, 50
+  split: 16, 16, 16, 16
+  pad: 0, 0, 0, 0
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+translucent_black
+  rotate: false
+  xy: 359, 448
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+window
+  rotate: false
+  xy: 259, 313
+  size: 46, 88
+  split: 22, 20, 66, 21
+  orig: 46, 88
+  offset: 0, 0
+  index: -1
+bitwise
+  rotate: false
+  xy: 1, 487
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+cranberry_gin
+  rotate: false
+  xy: 1, 229
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+cranberry_gin_30
+  rotate: false
+  xy: 515, 743
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
