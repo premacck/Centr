@@ -13,6 +13,8 @@ import com.badlogic.gdx.utils.Align;
 import com.prembros.centr.MyGdxGame;
 import com.prembros.centr.sprites.Rocket;
 
+import static com.prembros.centr.sprites.Rocket.IS_MENU_LAUNCHED;
+
 /**
  *
  * Created by Prem $ on 7/24/2017.
@@ -39,7 +41,7 @@ public class HelpState extends State {
         table.setPosition(MyGdxGame.WIDTH / 3, 0);
         table.setSize(MyGdxGame.WIDTH - (MyGdxGame.WIDTH / 3), MyGdxGame.HEIGHT);
 
-        Label title = new Label("This is your rocket", skin, "title_white");
+        Label title = new Label("This is your rocket", skin, "title_white_small");
         title.setWrap(true);
         title.setAlignment(Align.center);
 
@@ -47,7 +49,7 @@ public class HelpState extends State {
                 "\n\n(Sometimes, if you're lucky, it may pass right across it!)", skin, "white");
         subtitle.setWrap(true);
         subtitle.setAlignment(Align.center);
-        subtitle.setFontScale(0.6f);
+        subtitle.setFontScale(0.5f);
 
         Label message1;
         switch (Gdx.app.getType()) {
@@ -65,7 +67,7 @@ public class HelpState extends State {
         }
         message1.setWrap(true);
         message1.setAlignment(Align.center);
-        message1.setFontScale(0.6f);
+        message1.setFontScale(0.5f);
 
         Label message2 = new Label("Go on, give it a try!", skin, "white");
         message2.setWrap(true);
@@ -75,7 +77,7 @@ public class HelpState extends State {
         Label message3 = new Label("In the game, avoid the obstacles to earn points!", skin, "white");
         message3.setWrap(true);
         message3.setAlignment(Align.center);
-        message3.setFontScale(0.6f);
+        message3.setFontScale(0.5f);
 
         table.row().pad(0, 30, 5, 20).align(Align.top);
         table.add(title).width(300);
@@ -113,9 +115,14 @@ public class HelpState extends State {
 
     @Override
     public void update(float deltaTime) {
-        Gdx.input.setCatchBackKey(true);
-        handleInput();
-        rocket.update(deltaTime);
+        if (!IS_MENU_LAUNCHED) {
+            Gdx.input.setCatchBackKey(true);
+            handleInput();
+            rocket.update(deltaTime);
+        } else {
+            gameStateManager.set(new MenuState(gameStateManager, game));
+            IS_MENU_LAUNCHED = false;
+        }
     }
 
     @Override

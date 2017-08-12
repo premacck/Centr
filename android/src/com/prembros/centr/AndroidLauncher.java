@@ -3,6 +3,7 @@ package com.prembros.centr;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -57,21 +58,23 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 	}
 
 	@Override
-	public void signIn() {
-		try {
-			runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					gameHelper.beginUserInitiatedSignIn();
-				}
-			});
-		} catch (Exception e) {
-			Gdx.app.log("MainActivity", "Sign in failed: " + e.getMessage() + ".");
-		}
+	public boolean isStoreVersion() {
+		String installer = getPackageManager().getInstallerPackageName(getPackageName());
+		return !TextUtils.isEmpty(installer);
 	}
 
 	@Override
-	public void signOut() {
+	public boolean signIn() {
+		try {
+            gameHelper.beginUserInitiatedSignIn();
+		} catch (Exception e) {
+			Gdx.app.log("MainActivity", "Sign in failed: " + e.getMessage() + ".");
+		}
+		return isSignedIn();
+	}
+
+	@Override
+	public boolean signOut() {
 		try {
 			runOnUiThread(new Runnable() {
 				@Override
@@ -82,6 +85,7 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 		} catch (Exception e) {
 			Gdx.app.log("MainActivity", "Sign out failed: " + e.getMessage() + ".");
 		}
+		return !isSignedIn();
 	}
 
 	@Override
@@ -90,13 +94,13 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 	}
 
 	@Override
-	public void unlockAchievement(int resId) {
-		Games.Achievements.unlock(gameHelper.getApiClient(), getString(resId));
+	public void unlockAchievement(String id) {
+		Games.Achievements.unlock(gameHelper.getApiClient(), id);
 	}
 
 	@Override
-	public void incrementAchievement(int resId) {
-		Games.Achievements.increment(gameHelper.getApiClient(), getString(resId), 1);
+	public void incrementAchievement(String id) {
+		Games.Achievements.increment(gameHelper.getApiClient(), id, 1);
 	}
 
 	@Override

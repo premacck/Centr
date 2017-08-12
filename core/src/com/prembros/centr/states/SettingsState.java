@@ -1,6 +1,8 @@
 package com.prembros.centr.states;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.prembros.centr.MyGdxGame;
@@ -65,19 +68,21 @@ public class SettingsState extends State {
         musicCheckBox = new CheckBox(" Music\t", skin);
         soundCheckBox = new CheckBox(" Sound\t", skin);
         autoHideCheckBox = new CheckBox("    Auto hide buttons", skin);
+
+        Label titleLabel = new Label("Settings", skin, "title_white_small");
         Label label = new Label("(If enabled, the buttons will appear whenever the rocket is in the center)" +
                 "\n\nYou can tap anywhere to make the rocket stay away from the center.", skin, "white");
         label.setWrap(true);
         label.setFontScale(0.6f);
         label.setAlignment(Align.center);
         ImageButton backBtn = new ImageButton(skin, "backBtn");
-        Label titleLabel = new Label("Settings", skin, "title_white");
+        TextButton signInBtn = new TextButton("", skin);
 
         setInitialValues(musicCheckBox, musicVolumeSlider, soundCheckBox, soundVolumeSlider, autoHideCheckBox);
 
-        setValuesAndListeners(musicVolumeSlider, soundVolumeSlider, musicCheckBox, soundCheckBox, autoHideCheckBox, backBtn);
+        setValuesAndListeners(musicVolumeSlider, soundVolumeSlider, musicCheckBox, soundCheckBox, autoHideCheckBox, backBtn, signInBtn);
 
-        prepareTable(table, titleLabel, label, backBtn);
+        prepareTable(table, titleLabel, label, backBtn, signInBtn);
     }
 
     private void setInitialValues(CheckBox musicCheckBox, Slider musicVolumeSlider,
@@ -91,12 +96,21 @@ public class SettingsState extends State {
 
     private void setValuesAndListeners(final Slider musicVolumeSlider, final Slider soundVolumeSlider,
                                        final CheckBox musicCheckBox, final CheckBox soundCheckBox,
-                                       final CheckBox autoHideCheckBox, ImageButton back_btn) {
+                                       final CheckBox autoHideCheckBox, ImageButton back_btn,
+                                       final TextButton signInBtn) {
         musicVolumeSlider.setValue(getMusicVolume());
         soundVolumeSlider.setValue(getSoundVolume());
         musicCheckBox.setChecked(ifMusicEnabled());
         soundCheckBox.setChecked(ifSoundEnabled());
         autoHideCheckBox.setChecked(ifAutoHideEnabled());
+
+//        musicCheckBox.setName("MusicCheckBox");
+//        soundCheckBox.setName("SoundCheckBox");
+//        musicVolumeSlider.setName("MusicVolumeSlider");
+//        soundVolumeSlider.setName("SoundVolumeSlider");
+//        autoHideCheckBox.setName("AutoHideCheckBox");
+//        signInBtn.setName("SignInBtn");
+//        back_btn.setName("BackBtn");
 
         musicVolumeSlider.addListener(new ChangeListener() {
             @Override
@@ -136,12 +150,32 @@ public class SettingsState extends State {
         back_btn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                btnHover.play(0.2f);
                 changeState(MyGdxGame.MENU_STATE);
+            }
+        });
+
+        signInBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                btnHover.play(0.2f);
+                if (Gdx.app.getType() == Application.ApplicationType.Android) {
+                    if (!game.playServices.isSignedIn()) {
+                        if (game.playServices.signIn())
+                            signInBtn.setText("Sign out from Google Play Games");
+                    } else {
+                        if (game.playServices.signOut())
+                            signInBtn.setText("Sign in to Google Play Games");
+                    }
+                }
+//                if (signInBtn.getText().toString().contains("Sign out from Google Play Games")) {
+//                    signInBtn.setText("Sign in to Google Play Games");
+//                } else signInBtn.setText("Sign out from Google Play Games");
             }
         });
     }
 
-    private void prepareTable(Table table, Label titleLabel, Label label, ImageButton backBtn) {
+    private void prepareTable(Table table, Label titleLabel, Label label, ImageButton backBtn, TextButton signInBtn) {
         table.row().pad(50, 0, 20, 0);
         table.add(titleLabel).colspan(2);
         table.row().pad(50, 0, 10, 0);
@@ -152,8 +186,17 @@ public class SettingsState extends State {
         table.add(soundVolumeSlider);
         table.row().pad(40, 0, 10, 0);
         table.add(autoHideCheckBox).colspan(2);
-        table.row().pad(0, 0, 100, 0);
+        if (Gdx.app.getType() == Application.ApplicationType.Android)
+            table.row().pad(0, 0, 20, 0);
+        else table.row().pad(0, 0, 100, 0);
         table.add(label).width(380).colspan(2);
+        if (Gdx.app.getType() == Application.ApplicationType.Android) {
+            table.row().pad(20, 0, 0, 0);
+            if (!game.playServices.isSignedIn())
+                signInBtn.setText("Sign in to Google Play Games");
+            else signInBtn.setText("Sign out from Google Play Games");
+            table.add(signInBtn).size(BTN_WIDTH, BTN_HEIGHT).colspan(2);
+        }
         table.row().pad(50, 0, 0, 0);
         table.add(backBtn).size(BTN_WIDTH, BTN_HEIGHT).colspan(2);
 
@@ -166,6 +209,10 @@ public class SettingsState extends State {
 
     @Override
     public void update(float deltaTime) {
+        Gdx.input.setCatchBackKey(true);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
+            gameStateManager.set(new MenuState(gameStateManager, game));
+        }
         Gdx.input.setInputProcessor(stage);
     }
 

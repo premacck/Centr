@@ -262,7 +262,7 @@ public class Rocket {
         backBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                showPauseDialog();
+                IS_MENU_LAUNCHED = true;
                 return true;
             }
         });

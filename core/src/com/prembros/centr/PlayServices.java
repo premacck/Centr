@@ -7,11 +7,12 @@ package com.prembros.centr;
 
 @SuppressWarnings("WeakerAccess")
 public interface PlayServices {
-    void signIn();
-    void signOut();
+    boolean isStoreVersion();
+    boolean signIn();
+    boolean signOut();
     void rateGame();
-    void unlockAchievement(int resId);
-    void incrementAchievement(int resId);
+    void unlockAchievement(String id);
+    void incrementAchievement(String resId);
     void submitScore(int score);
     void showAchievements();
     void showScore();

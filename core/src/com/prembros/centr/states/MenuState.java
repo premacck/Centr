@@ -1,8 +1,6 @@
 package com.prembros.centr.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,7 +24,7 @@ import static com.prembros.centr.MyGdxGame.SETTINGS_STATE;
  * Created by Prem $ on 7/21/2017.
  */
 
-public class MenuState extends State implements InputProcessor {
+public class MenuState extends State {
 
     private Texture background;
     private Music welcomeMusic;
@@ -36,7 +34,7 @@ public class MenuState extends State implements InputProcessor {
         background = new Texture("bg_home.png");
         welcomeMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/welcome_music.mp3"));
         welcomeMusic.setLooping(true);
-        welcomeMusic.setVolume(getMusicVolume());
+        welcomeMusic.setVolume(0.5f);
         if (ifMusicEnabled()) {
             welcomeMusic.play();
         }
@@ -44,9 +42,8 @@ public class MenuState extends State implements InputProcessor {
 
         Table table = new Table(skin);
         table.setFillParent(true);
-        Gdx.input.setInputProcessor(stage);
 
-        Label appTitle = new Label("CENTR", skin, "title_white");
+        Label appTitle = new Label("CENTR", skin, "title_home");
         appTitle.setAlignment(Align.center);
         ImageButton playBtn = new ImageButton(skin, "playBtn");
         ImageButton settingsBtn = new ImageButton(skin, "settingsBtn");
@@ -55,7 +52,7 @@ public class MenuState extends State implements InputProcessor {
 
         setListeners(playBtn, settingsBtn, helpBtn, exitBtn);
 
-        table.row().pad(80, 0, 120, 0);
+        table.row().pad(0, 0, 200, 0);
         table.add(appTitle).fill().uniformX();
         table.row();
         table.add(playBtn).size(BTN_WIDTH, BTN_HEIGHT).fill().uniformX();
@@ -75,6 +72,7 @@ public class MenuState extends State implements InputProcessor {
 
     @Override
     public void update(float deltaTime) {
+        Gdx.input.setInputProcessor(stage);
 //        handleInput();
     }
 
@@ -111,7 +109,7 @@ public class MenuState extends State implements InputProcessor {
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                btnHover.play(getSoundVolume());
+                btnHover.play(0.2f);
             }
         });
 
@@ -128,7 +126,7 @@ public class MenuState extends State implements InputProcessor {
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                btnHover.play(getSoundVolume());
+                btnHover.play(0.2f);
             }
         });
 
@@ -145,7 +143,7 @@ public class MenuState extends State implements InputProcessor {
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                btnHover.play(getSoundVolume());
+                btnHover.play(0.2f);
             }
         });
 
@@ -162,59 +160,8 @@ public class MenuState extends State implements InputProcessor {
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                btnHover.play(getSoundVolume());
+                btnHover.play(0.2f);
             }
         });
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.BACK) {
-            changeState(EXIT_STATE);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return true;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (screenY > (MyGdxGame.HEIGHT / 2)) {
-            gameStateManager.set(new ObstaclePlayState(gameStateManager, game));
-            dispose();
-        }
-        else if (screenY < (MyGdxGame.HEIGHT / 2)) {
-            gameStateManager.set(new AsteroidPlayState(gameStateManager, game));
-            dispose();
-        }
-        return true;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
     }
 }

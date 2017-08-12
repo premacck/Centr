@@ -54,9 +54,6 @@ public abstract class State {
         stage = new Stage(new FillViewport(MyGdxGame.WIDTH, MyGdxGame.HEIGHT, camera));
         skin = new Skin(Gdx.files.internal("skin/skin_centr.json"));
         btnHover = Gdx.audio.newSound(Gdx.files.internal("sound/click.ogg"));
-        if (isConnected() && !game.playServices.isSignedIn()) {
-            game.playServices.signIn();
-        }
     }
 
     public void resize(int width, int height) {
@@ -72,8 +69,8 @@ public abstract class State {
                 break;
             case PLAY_STATE:
                 if (!gameStateManager.isStackEmpty())
-                    gameStateManager.set(new ObstaclePlayState(gameStateManager, game));
-                else gameStateManager.push(new ObstaclePlayState(gameStateManager, game));
+                    gameStateManager.set(new PlayState(gameStateManager, game));
+                else gameStateManager.push(new PlayState(gameStateManager, game));
                 break;
             case SETTINGS_STATE:
                 if (!gameStateManager.isStackEmpty())

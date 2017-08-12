@@ -15,7 +15,7 @@ import java.util.Random;
 public class Obstacle {
 
     private static final int FLUCTUATION = 300;
-    public static final int OBSTACLE_WIDTH = 75;
+    public static final int OBSTACLE_WIDTH = 70;
 
     private Texture obstacle;
     private Vector2 position;

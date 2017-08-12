@@ -1,5 +1,6 @@
 package com.prembros.centr.states;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
@@ -16,12 +17,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.prembros.centr.MyGdxGame;
+import com.prembros.centr.Toast;
 import com.prembros.centr.sprites.Obstacle;
 import com.prembros.centr.sprites.Rocket;
 
 import static com.prembros.centr.MyGdxGame.MENU_STATE;
 import static com.prembros.centr.MyGdxGame.PLAY_STATE;
 import static com.prembros.centr.MyGdxGame.SETTINGS_STATE;
+import static com.prembros.centr.Toast.*;
 import static com.prembros.centr.sprites.Obstacle.OBSTACLE_WIDTH;
 import static com.prembros.centr.sprites.Rocket.IS_MENU_LAUNCHED;
 import static com.prembros.centr.sprites.Rocket.IS_PAUSED;
@@ -33,11 +36,20 @@ import static com.prembros.centr.sprites.Rocket.IS_SETTINGS_LAUNCHED;
  */
 
 @SuppressWarnings({"Convert2Diamond", "LibGDXUnsafeIterator"})
-class ObstaclePlayState extends State {
+class PlayState extends State {
 
-    private static final int OBSTACLE_SPACING = 280;
+    private static final int OBSTACLE_SPACING = 300;
     private static final int OBSTACLE_COUNT = 3;
     private static int SCORE;
+    
+    private static final String achievement_good_start_is_half_done = "CgkIvMGr3JQfEAIQAg";
+    private static final String achievement_5_points = "CgkIvMGr3JQfEAIQAw";
+    private static final String achievement_10_points = "CgkIvMGr3JQfEAIQBA";
+    private static final String achievement_nice_going = "CgkIvMGr3JQfEAIQBQ";
+    private static final String achievement_god_dang = "CgkIvMGr3JQfEAIQBg";
+    private static final String achievement_keep_going = "CgkIvMGr3JQfEAIQBw";
+    private static final String achievement_youre_on_fire = "CgkIvMGr3JQfEAIQCA";
+//    private static final String leaderboard_centr_hall_of_famers = "CgkIvMGr3JQfEAIQAQ";
 
     private CharSequence scoreString;
     private BitmapFont scoreFont;
@@ -53,7 +65,7 @@ class ObstaclePlayState extends State {
     private Vector2 bgBottomPosition2;
     private boolean scoreFlag;
 
-    ObstaclePlayState(GameStateManager gameStateManager, MyGdxGame game) {
+    PlayState(GameStateManager gameStateManager, MyGdxGame game) {
         super(gameStateManager, game);
         SCORE = 0;
         scoreFlag = true;
@@ -61,12 +73,12 @@ class ObstaclePlayState extends State {
         scoreFont = new BitmapFont(Gdx.files.internal("skin/score_font.fnt"));
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/bg_music.mp3"));
         bgMusic.setLooping(true);
-        bgMusic.setVolume(getMusicVolume());
+        bgMusic.setVolume(0.5f);
         if (ifMusicEnabled()) {
             bgMusic.play();
         }
         deathSound = Gdx.audio.newMusic(Gdx.files.internal("sound/death.ogg"));
-        deathSound.setVolume(getSoundVolume());
+        deathSound.setVolume(0.5f);
 
         camera.setToOrtho(false, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
         rocket = new Rocket(50, false);
@@ -78,8 +90,8 @@ class ObstaclePlayState extends State {
         bgBottomPosition2 = new Vector2((camera.position.y - camera.viewportHeight) + ckt.getWidth(), 0);
 
         obstacles = new Array<Obstacle>();
-        for (int i = 2; i <= OBSTACLE_COUNT + 1; i ++) {
-            obstacles.add(new Obstacle(i * (OBSTACLE_SPACING + OBSTACLE_WIDTH)));
+        for (int i = 1; i <= OBSTACLE_COUNT; i ++) {
+            obstacles.add(new Obstacle((i * (OBSTACLE_SPACING + OBSTACLE_WIDTH)) + 200));
         }
 
         Gdx.input.setCatchBackKey(true);
@@ -105,7 +117,6 @@ class ObstaclePlayState extends State {
                         SCORE++;
                         scoreString = String.valueOf(SCORE);
                         scoreFlag = false;
-
                     }
                 }
             }
@@ -132,9 +143,11 @@ class ObstaclePlayState extends State {
         } else {
             if (IS_MENU_LAUNCHED) {
                 gameStateManager.set(new MenuState(gameStateManager, game));
+                IS_MENU_LAUNCHED = false;
             }
             else if (IS_SETTINGS_LAUNCHED) {
                 gameStateManager.set(new SettingsState(gameStateManager, game));
+                IS_SETTINGS_LAUNCHED = false;
             }
         }
     }
@@ -230,6 +243,55 @@ class ObstaclePlayState extends State {
 
         dialog.setName("gameOverDialog");
         rocket.getStage().addActor(dialog);
+
+        if (Gdx.app.getType() == Application.ApplicationType.Android) {
+            if (game.playServices.isStoreVersion()) {
+                updatePlayGames();
+            }
+        }
+    }
+
+    private void updatePlayGames() {
+
+        /*
+          Submit Score
+         */
+        if (SCORE > 0) {
+            if (game.playServices.isSignedIn()) {
+                game.playServices.submitScore(SCORE);
+            } else {
+                new Toast().makeText("It seems you're not signed in. Please try again",
+                        COLOR_PREF.RED, STYLE.ROUND, POSITION.middle, POSITION.middle_down, SHORT);
+                game.playServices.signIn();
+            }
+        }
+        else new Toast().makeText("Score above zero to be in leaderboards",
+                COLOR_PREF.RED, STYLE.ROUND, POSITION.middle, POSITION.middle_down, SHORT);
+
+        /*
+          Unlock Achievements
+         */
+        if (SCORE >= 1) {
+            game.playServices.unlockAchievement(achievement_good_start_is_half_done);
+        }
+        if (SCORE >= 5) {
+            game.playServices.unlockAchievement(achievement_5_points);
+        }
+        if (SCORE >= 10) {
+            game.playServices.unlockAchievement(achievement_10_points);
+        }
+        if (SCORE >= 20) {
+            game.playServices.unlockAchievement(achievement_nice_going);
+        }
+        if (SCORE >= 30) {
+            game.playServices.unlockAchievement(achievement_god_dang);
+        }
+        if (SCORE >= 40) {
+            game.playServices.unlockAchievement(achievement_keep_going);
+        }
+        if (SCORE >= 50) {
+            game.playServices.unlockAchievement(achievement_youre_on_fire);
+        }
     }
 
     private void showPauseDialog() {

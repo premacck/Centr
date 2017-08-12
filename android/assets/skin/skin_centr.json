@@ -3,8 +3,17 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	bitwise: {
 		file: bitwise.fnt
 	}
+	bitwise_40: {
+		file: bitwise_40.fnt
+	}
+	bitwise_colored: {
+		file: bitwise_colored.fnt
+	}
 	cranberry_gin: {
 		file: cranberry_gin.fnt
+	}
+	cranberry_gin_20: {
+		file: cranberry_gin_20.fnt
 	}
 	cranberry_gin_30: {
 		file: cranberry_gin_30.fnt
@@ -329,6 +338,17 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: bitwise
 		fontColor: white
 	}
+	title_red: {
+		font: bitwise
+		fontColor: project_red
+	}
+	title_white_small: {
+		font: bitwise_40
+		fontColor: white
+	}
+	title_home: {
+		font: bitwise_colored
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
 	default-horizontal: {
@@ -360,7 +380,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
-		font: cranberry_gin_30
+		font: cranberry_gin_20
 		fontColor: black
 		downFontColor: white
 		up: btn_square_default
@@ -368,13 +388,21 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		over: btn_square_hover
 	}
 	toggle: {
-		font: cranberry_gin_30
+		font: cranberry_gin_20
 		fontColor: black
 		overFontColor: gray_light
 		checkedFontColor: white
 		up: square_fill_white
 		over: square_fill_none
 		checked: square_fill_red
+	}
+	white_text: {
+		font: cranberry_gin_20
+		fontColor: white
+		downFontColor: project_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
@@ -397,7 +425,7 @@ com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	default: {
 		background: window
-		titleFont: bitwise
+		titleFont: bitwise_40
 		titleFontColor: project_amber
 		stageBackground: translucent_black_light
 	}
