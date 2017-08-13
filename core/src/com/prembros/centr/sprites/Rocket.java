@@ -202,7 +202,7 @@ public class Rocket {
         } else {
             velocity.y = -300;
         }
-        blop.play(Gdx.app.getPreferences(PREFS_NAME).getFloat(PREF_SOUND_VOLUME));
+        blop.play(Gdx.app.getPreferences(PREFS_NAME).getFloat(PREF_SOUND_VOLUME, 0.5f));
     }
 
     private void setListeners(ImageButton upBtn, ImageButton downBtn, ImageButton pauseBtn, ImageButton backBtn) {

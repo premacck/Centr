@@ -169,11 +169,11 @@ public abstract class State {
     }
 
     float getMusicVolume() {
-        return getPrefs().getFloat(PREF_MUSIC_VOLUME);
+        return getPrefs().getFloat(PREF_MUSIC_VOLUME, 0.6f);
     }
 
     float getSoundVolume() {
-        return getPrefs().getFloat(PREF_SOUND_VOLUME);
+        return getPrefs().getFloat(PREF_SOUND_VOLUME, 0.6f);
     }
 
     boolean ifMusicEnabled() {
@@ -185,6 +185,6 @@ public abstract class State {
     }
 
     boolean ifAutoHideEnabled() {
-        return getPrefs().getBoolean(PREF_AUTO_HIDE_BUTTONS);
+        return getPrefs().getBoolean(PREF_AUTO_HIDE_BUTTONS, false);
     }
 }

@@ -43,8 +43,9 @@ public class SettingsState extends State {
     private float previousMusicVolume;
     private Music welcomeMusic;
     private Sound sampleSound;
-
     private Texture background;
+
+    private Preferences preferences;
 
     SettingsState(GameStateManager gameStateManager, MyGdxGame game) {
         super(gameStateManager, game);
@@ -236,7 +237,10 @@ public class SettingsState extends State {
     }
 
     private Preferences getPrefs() {
-        return Gdx.app.getPreferences(PREFS_NAME);
+        if (preferences == null) {
+            preferences = Gdx.app.getPreferences(PREFS_NAME);
+        }
+        return preferences;
     }
 
     private void setMusicVolume(float volume) {

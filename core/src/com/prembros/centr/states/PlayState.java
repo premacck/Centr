@@ -73,12 +73,12 @@ class PlayState extends State {
         scoreFont = new BitmapFont(Gdx.files.internal("skin/score_font.fnt"));
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/bg_music.mp3"));
         bgMusic.setLooping(true);
-        bgMusic.setVolume(0.5f);
+        bgMusic.setVolume(getMusicVolume());
         if (ifMusicEnabled()) {
             bgMusic.play();
         }
         deathSound = Gdx.audio.newMusic(Gdx.files.internal("sound/death.ogg"));
-        deathSound.setVolume(0.5f);
+        deathSound.setVolume(getMusicVolume());
 
         camera.setToOrtho(false, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
         rocket = new Rocket(50, false);

@@ -34,7 +34,7 @@ public class MenuState extends State {
         background = new Texture("bg_home.png");
         welcomeMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/welcome_music.mp3"));
         welcomeMusic.setLooping(true);
-        welcomeMusic.setVolume(0.5f);
+        welcomeMusic.setVolume(getMusicVolume());
         if (ifMusicEnabled()) {
             welcomeMusic.play();
         }
@@ -109,7 +109,7 @@ public class MenuState extends State {
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                btnHover.play(0.2f);
+                btnHover.play(getSoundVolume());
             }
         });
 
@@ -126,7 +126,7 @@ public class MenuState extends State {
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                btnHover.play(0.2f);
+                btnHover.play(getSoundVolume());
             }
         });
 
@@ -143,7 +143,7 @@ public class MenuState extends State {
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                btnHover.play(0.2f);
+                btnHover.play(getSoundVolume());
             }
         });
 
@@ -160,7 +160,7 @@ public class MenuState extends State {
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                btnHover.play(0.2f);
+                btnHover.play(getSoundVolume());
             }
         });
     }

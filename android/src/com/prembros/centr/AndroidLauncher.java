@@ -11,7 +11,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.GameHelper;
 
-public class AndroidLauncher extends AndroidApplication implements PlayServices {
+public class AndroidLauncher extends AndroidApplication implements PlayServices, GameHelper.GameHelperListener {
 
 	private final static int REQUEST_CODE = 1;
 	private GameHelper gameHelper;
@@ -22,19 +22,10 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
 		gameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
-		gameHelper.enableDebugLog(false);
+		gameHelper.enableDebugLog(true);
+//		gameHelper.setMaxAutoSignInAttempts(0);
 
-		gameHelper.setup(new GameHelper.GameHelperListener() {
-			@Override
-			public void onSignInFailed() {
-
-			}
-
-			@Override
-			public void onSignInSucceeded() {
-
-			}
-		});
+		gameHelper.setup(this);
 
 		initialize(new MyGdxGame(this), config);
 	}
@@ -127,5 +118,15 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 	@Override
 	public boolean isSignedIn() {
 		return gameHelper.isSignedIn();
+	}
+
+	@Override
+	public void onSignInFailed() {
+		System.out.println("sign in failed");
+	}
+
+	@Override
+	public void onSignInSucceeded() {
+		System.out.println("sign in succeded");
 	}
 }
