@@ -262,45 +262,36 @@ class PlayState extends State {
     private void updatePlayGamesScore() {
         if (Gdx.app.getType() == Application.ApplicationType.Android) {
             if (game.playServices.isStoreVersion()) {
-        /*
-          Submit Score
-         */
                 if (SCORE > 0) {
                     if (game.playServices.isSignedIn()) {
+                        /*
+                          Submit Score
+                         */
                         game.playServices.submitScore(SCORE);
-                    }
-//            else {
-//                toast.makeText("Sign in to get your score in leaderboards and earn achievements",
-//                        COLOR_PREF.RED, STYLE.ROUND, POSITION.middle, POSITION.middle_down, SHORT);
-//            }
-                }
-//        else toast.makeText("Score above zero to be in leaderboards",
-//                COLOR_PREF.RED, STYLE.ROUND, POSITION.middle, POSITION.middle_down, SHORT);
-
-        /*
-          Unlock Achievements
-         */
-                if (game.playServices.isSignedIn()) {
-                    if (SCORE >= 1) {
-                        game.playServices.unlockAchievement(achievement_good_start_is_half_done);
-                    }
-                    if (SCORE >= 5) {
-                        game.playServices.unlockAchievement(achievement_5_points);
-                    }
-                    if (SCORE >= 10) {
-                        game.playServices.unlockAchievement(achievement_10_points);
-                    }
-                    if (SCORE >= 20) {
-                        game.playServices.unlockAchievement(achievement_nice_going);
-                    }
-                    if (SCORE >= 30) {
-                        game.playServices.unlockAchievement(achievement_god_dang);
-                    }
-                    if (SCORE >= 40) {
-                        game.playServices.unlockAchievement(achievement_keep_going);
-                    }
-                    if (SCORE >= 50) {
-                        game.playServices.unlockAchievement(achievement_youre_on_fire);
+                        /*
+                          Unlock Achievements
+                         */
+                        if (SCORE >= 1) {
+                            game.playServices.unlockAchievement(achievement_good_start_is_half_done);
+                        }
+                        if (SCORE >= 5) {
+                            game.playServices.unlockAchievement(achievement_5_points);
+                        }
+                        if (SCORE >= 10) {
+                            game.playServices.unlockAchievement(achievement_10_points);
+                        }
+                        if (SCORE >= 20) {
+                            game.playServices.unlockAchievement(achievement_nice_going);
+                        }
+                        if (SCORE >= 30) {
+                            game.playServices.unlockAchievement(achievement_god_dang);
+                        }
+                        if (SCORE >= 40) {
+                            game.playServices.unlockAchievement(achievement_keep_going);
+                        }
+                        if (SCORE >= 50) {
+                            game.playServices.unlockAchievement(achievement_youre_on_fire);
+                        }
                     }
                 }
             }
