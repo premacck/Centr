@@ -182,6 +182,14 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		name: bt_square_pressed
 		color: translucent_white
 	}
+	achievement_red: {
+		name: achievement
+		color: project_red
+	}
+	leaderboard_red: {
+		name: leaderboard
+		color: project_red
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {
@@ -292,6 +300,20 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		up: btn_square_default_translucent
 		down: bt_square_pressed_translucent
 		over: btn_square_hover_translucent
+	}
+	achievement: {
+		imageUp: achievement
+		imageDown: achievement_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
+	}
+	leaderboard: {
+		imageUp: leaderboard
+		imageDown: leaderboard_red
+		up: btn_square_default
+		down: bt_square_pressed
+		over: btn_square_hover
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {

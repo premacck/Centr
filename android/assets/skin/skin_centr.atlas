@@ -4,6 +4,13 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+achievement
+  rotate: false
+  xy: 951, 849
+  size: 24, 40
+  orig: 24, 40
+  offset: 0, 0
+  index: -1
 back
   rotate: false
   xy: 515, 725
@@ -41,9 +48,16 @@ exit_arrow
   index: -1
 help
   rotate: false
-  xy: 317, 211
+  xy: 737, 725
   size: 35, 40
   orig: 35, 40
+  offset: 0, 0
+  index: -1
+leaderboard
+  rotate: false
+  xy: 649, 683
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: -1
 menubtn
@@ -69,7 +83,7 @@ play
   index: -1
 replaybtn
   rotate: false
-  xy: 649, 683
+  xy: 317, 211
   size: 36, 40
   orig: 36, 40
   offset: 0, 0

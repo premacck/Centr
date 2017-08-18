@@ -22,8 +22,8 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices,
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
 		gameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
-		gameHelper.enableDebugLog(true);
-//		gameHelper.setMaxAutoSignInAttempts(0);
+		gameHelper.enableDebugLog(false);
+		gameHelper.setMaxAutoSignInAttempts(2);
 
 		gameHelper.setup(this);
 
@@ -109,6 +109,13 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices,
 	}
 
 	@Override
+	public void showLeaderBoard() {
+		if (isSignedIn()) {
+			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), "CgkIvMGr3JQfEAIQAQ"), REQUEST_CODE);
+		} else signIn();
+	}
+
+	@Override
 	public void showScore() {
 		if (isSignedIn()) {
 			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), "CgkIvMGr3JQfEAIQAQ"), REQUEST_CODE);
@@ -122,11 +129,9 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices,
 
 	@Override
 	public void onSignInFailed() {
-		System.out.println("sign in failed");
 	}
 
 	@Override
 	public void onSignInSucceeded() {
-		System.out.println("sign in succeded");
 	}
 }

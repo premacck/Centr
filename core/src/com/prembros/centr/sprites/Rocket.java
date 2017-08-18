@@ -198,9 +198,9 @@ public class Rocket {
 
     private void sway(boolean isUp) {
         if (isUp) {
-            velocity.y = 300;
+            velocity.y = 320;
         } else {
-            velocity.y = -300;
+            velocity.y = -320;
         }
         blop.play(Gdx.app.getPreferences(PREFS_NAME).getFloat(PREF_SOUND_VOLUME, 0.5f));
     }

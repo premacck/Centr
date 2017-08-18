@@ -1,5 +1,6 @@
 package com.prembros.centr.states;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
@@ -49,19 +50,27 @@ public class MenuState extends State {
         ImageButton settingsBtn = new ImageButton(skin, "settingsBtn");
         ImageButton helpBtn = new ImageButton(skin, "helpBtn");
         ImageButton exitBtn = new ImageButton(skin, "exitBtn");
+        ImageButton leaderboard = new ImageButton(skin, "leaderboard");
+        ImageButton achievement = new ImageButton(skin, "achievement");
 
-        setListeners(playBtn, settingsBtn, helpBtn, exitBtn);
+
+        setListeners(playBtn, settingsBtn, helpBtn, exitBtn, leaderboard, achievement);
 
         table.row().pad(0, 0, 200, 0);
-        table.add(appTitle).fill().uniformX();
+        table.add(appTitle).fill().uniformX().colspan(2);
         table.row();
-        table.add(playBtn).size(BTN_WIDTH, BTN_HEIGHT).fill().uniformX();
+        table.add(playBtn).size(BTN_WIDTH, BTN_HEIGHT).fill().uniformX().colspan(2);
         table.row();
-        table.add(settingsBtn).size(BTN_WIDTH, BTN_HEIGHT).fill().uniformX();
+        table.add(settingsBtn).size(BTN_WIDTH, BTN_HEIGHT).fill().uniformX().colspan(2);
         table.row();
-        table.add(helpBtn).size(BTN_WIDTH, BTN_HEIGHT).fill().uniformX();
+        table.add(helpBtn).size(BTN_WIDTH, BTN_HEIGHT).fill().uniformX().colspan(2);
         table.row();
-        table.add(exitBtn).size(BTN_WIDTH, BTN_HEIGHT).fill().uniformX();
+        if (Gdx.app.getType() == Application.ApplicationType.Android) {
+            table.add(leaderboard).size(BTN_WIDTH / 2, BTN_HEIGHT);
+            table.add(achievement).size(BTN_WIDTH / 2, BTN_HEIGHT);
+            table.row();
+        }
+        table.add(exitBtn).size(BTN_WIDTH, BTN_HEIGHT).fill().uniformX().colspan(2);
 
         stage.addActor(table);
     }
@@ -95,7 +104,7 @@ public class MenuState extends State {
         welcomeMusic.dispose();
     }
 
-    private void setListeners(Button playBtn, Button settingsBtn, Button helpBtn, Button exitBtn) {
+    private void setListeners(Button playBtn, Button settingsBtn, Button helpBtn, Button exitBtn, ImageButton leaderboard, ImageButton achievement) {
         playBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -156,6 +165,40 @@ public class MenuState extends State {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 changeState(EXIT_STATE);
+            }
+
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                btnHover.play(getSoundVolume());
+            }
+        });
+
+        leaderboard.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                game.playServices.showLeaderBoard();
+            }
+
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                btnHover.play(getSoundVolume());
+            }
+        });
+
+        achievement.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                game.playServices.showAchievements();
             }
 
             @Override

@@ -15,6 +15,7 @@ public interface PlayServices {
     void incrementAchievement(String resId);
     void submitScore(int score);
     void showAchievements();
+    void showLeaderBoard();
     void showScore();
     boolean isSignedIn ();
 }
