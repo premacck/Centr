@@ -19,12 +19,14 @@ public class MyGdxGame extends ApplicationAdapter {
 	public static final String TITLE = "Centr";
 
 	public PlayServices playServices;
+	public AdHandler adHandler;
 	private SpriteBatch spriteBatch;
 	private GameStateManager gameStateManager;
 
-	public MyGdxGame(PlayServices playServices) {
+	public MyGdxGame(PlayServices playServices, AdHandler adHandler) {
 		if (playServices != null)
 		this.playServices = playServices;
+		this.adHandler = adHandler;
 	}
 
 	@Override

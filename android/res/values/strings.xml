@@ -2,5 +2,7 @@
 <resources>
 
     <string name="app_name">Centr</string>
+    <string name="revive">Revive</string>
+    <string name="get_one_more_shot_by_watching_a_video">Get one more shot by watching a video</string>
 
 </resources>

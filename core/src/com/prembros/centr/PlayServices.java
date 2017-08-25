@@ -8,8 +8,8 @@ package com.prembros.centr;
 @SuppressWarnings("WeakerAccess")
 public interface PlayServices {
     boolean isStoreVersion();
-    boolean signIn();
-    boolean signOut();
+    void signIn();
+    void signOut();
     void rateGame();
     void unlockAchievement(String id);
     void incrementAchievement(String resId);

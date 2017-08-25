@@ -50,7 +50,7 @@ public class Rocket {
     private Texture rocket;
     private Texture rocket2;
     private Texture rocket3;
-    private Animation rocketAnimation;
+    private RocketAnimation rocketAnimation;
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle rocketBounds;
@@ -75,7 +75,7 @@ public class Rocket {
         rocket2 = new Texture("rocket2.png");
         rocket3 = new Texture("rocket3.png");
         position = new Vector3(x, (MyGdxGame.HEIGHT / 2) - (rocket.getHeight() / 2), 0);
-        rocketAnimation = new Animation(rocket, rocket2, rocket3, 3, 0.5f);
+        rocketAnimation = new RocketAnimation(rocket, rocket2, rocket3, 3, 0.5f);
         rocketBounds = new Rectangle(position.x, position.y, rocket.getWidth(), rocket.getHeight());
 
         stage = new Stage(new FillViewport(MyGdxGame.WIDTH, MyGdxGame.HEIGHT));

@@ -1,32 +1,30 @@
 package com.prembros.centr.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 /**
  *
- * Created by Prem $ on 7/20/2017.
+ * Created by Prem $ on 8/19/2017.
  */
 
 @SuppressWarnings("Convert2Diamond")
-class Animation {
+class CoinAnimation {
 
-    private Array<Texture> frames;
+    private Array<TextureRegion> frames;
     private float maxFrameTime;
     private float currentFrameTime;
     private int frameCount;
     private int currentFrame;
 
-    Animation(Texture texture1, Texture texture2, Texture texture3, int frameCount, float cycleTime) {
-        frames = new Array<Texture>();
-//        int frameWidth = texture.getWidth() / frameCount;
-//        for (int i = 0; i < frameCount; i++) {
-//            frames.add((new TextureRegion(texture, i * frameWidth, 0, frameWidth, texture.getHeight())).getTexture());
-//        }
-        frames.add(texture1);
-        frames.add(texture2);
-        frames.add(texture3);
-        this.frameCount = frameCount;
+    CoinAnimation(Texture texture, float cycleTime) {
+        frames = new Array<TextureRegion>();
+        frameCount = 30;
+        int frameWidth = 63;
+        for (int i = 0; i < frameCount; i++) {
+            frames.add((new TextureRegion(texture, i * frameWidth, 0, frameWidth, texture.getHeight())));
+        }
         maxFrameTime = cycleTime / frameCount;
         currentFrame = 0;
     }
@@ -42,7 +40,7 @@ class Animation {
         }
     }
 
-    Texture getCurrentFrame() {
+    TextureRegion getCurrentFrame() {
         return frames.get(currentFrame);
     }
 }

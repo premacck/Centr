@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -40,7 +41,7 @@ class PlayState extends State {
     private static final int OBSTACLE_SPACING = 300;
     private static final int OBSTACLE_COUNT = 3;
     private static int SCORE;
-    
+
     private static final String achievement_good_start_is_half_done = "CgkIvMGr3JQfEAIQAg";
     private static final String achievement_5_points = "CgkIvMGr3JQfEAIQAw";
     private static final String achievement_10_points = "CgkIvMGr3JQfEAIQBA";
@@ -55,6 +56,7 @@ class PlayState extends State {
     private Music bgMusic;
     private Music deathSound;
     private Music deathMusic;
+    private Sound coinCollect;
     private Rocket rocket;
     private Array<Obstacle> obstacles;
     private Texture bg;
@@ -79,9 +81,10 @@ class PlayState extends State {
             bgMusic.play();
         }
         deathSound = Gdx.audio.newMusic(Gdx.files.internal("sound/death.ogg"));
-        deathSound.setVolume(getMusicVolume());
+        deathSound.setVolume(getSoundVolume());
         deathMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/dead_music.mp3"));
         deathMusic.setVolume(getMusicVolume());
+        coinCollect = Gdx.audio.newSound(Gdx.files.internal("sound/coin_collect.ogg"));
 
         camera.setToOrtho(false, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
         rocket = new Rocket(50, false);
@@ -113,12 +116,13 @@ class PlayState extends State {
         if (!IS_PAUSED) {
             handleInput();
             updateBg();
-            updatePlayGamesScore();
+//            updatePlayGamesScore();
             rocket.update(deltaTime);
             camera.position.x = rocket.getPosition().x + 120;
 
             for (Obstacle obstacle : obstacles) {
-                if (camera.position.x - camera.viewportWidth / 2 + 100 > obstacle.getPosition().x + obstacle.getTexture().getWidth()) {
+                obstacle.updateCoins(deltaTime);
+                if (camera.position.x - camera.viewportWidth / 2 + 100 > obstacle.getObstaclePosition().x + obstacle.getTexture().getWidth()) {
                     if (scoreFlag) {
                         SCORE++;
                         scoreString = String.valueOf(SCORE);
@@ -128,8 +132,8 @@ class PlayState extends State {
             }
 
             for (Obstacle obstacle : obstacles) {
-                if (camera.position.x - camera.viewportWidth / 2  > obstacle.getPosition().x + obstacle.getTexture().getWidth()) {
-                    obstacle.reposition(obstacle.getPosition().x + ((OBSTACLE_WIDTH + OBSTACLE_SPACING) * OBSTACLE_COUNT));
+                if (camera.position.x - camera.viewportWidth / 2  > obstacle.getObstaclePosition().x + obstacle.getTexture().getWidth()) {
+                    obstacle.reposition(obstacle.getObstaclePosition().x + ((OBSTACLE_WIDTH + OBSTACLE_SPACING) * OBSTACLE_COUNT));
                     scoreFlag = true;
                 }
 
@@ -142,6 +146,17 @@ class PlayState extends State {
                         IS_PAUSED = true;
                         showGameOverDialog();
                     }
+                    break;
+                }
+
+                if (camera.position.x - camera.viewportWidth / 2 >
+                        obstacle.getCoinPosition().x + obstacle.getCoinFrame().getRegionWidth()) {
+                    obstacle.repositionCoin(obstacle.getCoinPosition().x + ((OBSTACLE_WIDTH + OBSTACLE_SPACING) * OBSTACLE_COUNT));
+                }
+
+                if (obstacle.coinCaptured(rocket.getBounds())) {
+                    obstacle.repositionCoin(obstacle.getCoinPosition().x + ((OBSTACLE_WIDTH + OBSTACLE_SPACING) * OBSTACLE_COUNT));
+                    coinCollect.play(getSoundVolume() + 0.2f);
                     break;
                 }
             }
@@ -168,7 +183,8 @@ class PlayState extends State {
         spriteBatch.draw(ckt, bgBottomPosition1.x, bgBottomPosition1.y);
         spriteBatch.draw(ckt, bgBottomPosition2.x, bgBottomPosition2.y);
         for (Obstacle obstacle : obstacles) {
-            spriteBatch.draw(obstacle.getTexture(), obstacle.getPosition().x, obstacle.getPosition().y);
+            spriteBatch.draw(obstacle.getTexture(), obstacle.getObstaclePosition().x, obstacle.getObstaclePosition().y);
+            spriteBatch.draw(obstacle.getCoinFrame(), obstacle.getCoinPosition().x, obstacle.getCoinPosition().y);
         }
         spriteBatch.draw(rocket.getTexture(), rocket.getPosition().x, rocket.getPosition().y,
                 rocket.getWidth() / 2, rocket.getHeight() / 2, rocket.getWidth(), rocket.getHeight(), 1, 1, rocket.getRotation(),
@@ -211,6 +227,9 @@ class PlayState extends State {
                 deathMusic.play();
             }
         }, 1);
+        if (Gdx.app.getType() == Application.ApplicationType.Android)
+            game.adHandler.showRevivalCountDown();
+
         rocket.getStage().clear();
         Table table = new Table(skin);
         table.setFillParent(true);
@@ -257,6 +276,8 @@ class PlayState extends State {
 
         dialog.setName("gameOverDialog");
         rocket.getStage().addActor(dialog);
+
+        updatePlayGamesScore();
     }
 
     private void updatePlayGamesScore() {

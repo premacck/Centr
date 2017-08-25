@@ -32,6 +32,7 @@ public class SettingsState extends State {
     static final String PREF_SOUND_ENABLED = "sound.enabled";
     public static final String PREF_AUTO_HIDE_BUTTONS = "btn_auto_hide";
     public static final String PREFS_NAME = "CentrPrefs";
+    public static final String PREF_COIN_COUNT = "CoinCount";
 
     private Slider musicVolumeSlider;
     private Slider soundVolumeSlider;
@@ -162,16 +163,13 @@ public class SettingsState extends State {
                 btnHover.play(0.2f);
                 if (Gdx.app.getType() == Application.ApplicationType.Android) {
                     if (!game.playServices.isSignedIn()) {
-                        if (game.playServices.signIn())
-                            signInBtn.setText("Sign out from Google Play Games");
+                        game.playServices.signIn();
+                        signInBtn.setText("Sign out from Google Play Games");
                     } else {
-                        if (game.playServices.signOut())
-                            signInBtn.setText("Sign in to Google Play Games");
+                        game.playServices.signOut();
+                        signInBtn.setText("Sign in to Google Play Games");
                     }
                 }
-//                if (signInBtn.getText().toString().contains("Sign out from Google Play Games")) {
-//                    signInBtn.setText("Sign in to Google Play Games");
-//                } else signInBtn.setText("Sign out from Google Play Games");
             }
         });
     }
